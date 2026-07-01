@@ -5,21 +5,23 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://${DB_HOST:localhost}/${DB_NAME:pos}</property>
+		<property name="hibernate.connection.username">${DB_USER}</property>
+		<property name="hibernate.connection.password">${DB_PASSWORD}</property>
 		
-
-		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost/pos</property>
-
-		
-		<property name="hibernate.connection.username">app</property>
-		<property name="hibernate.connection.password">app</property>
-		
-		
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hibernate.hbm2ddl.auto">validate</property>
 		<property name="hibernate.connection.autocommit">false</property>
 		<property name="hibernate.max_fetch_depth">3</property>
 		<property name="show_sql">false</property>
+
+		<!-- Connection Pool -->
+		<property name="hibernate.hikari.maximum_pool_size">10</property>
+		<property name="hibernate.hikari.minimum_idle">5</property>
+
+
+		
 
 		<mapping resource="com/floreantpos/model/ActionHistory.hbm.xml" />
 		<mapping resource="com/floreantpos/model/AttendenceHistory.hbm.xml" />
